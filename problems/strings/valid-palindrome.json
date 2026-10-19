@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "strings.valid-palindrome",
+  "slug": "valid-palindrome",
+  "title": "Valid Palindrome",
+  "description": "Normalize a phrase by keeping only alphanumeric characters and ignoring case. Decide whether the resulting sequence reads the same from left to right and right to left. An empty normalized sequence is a palindrome.",
+  "difficulty": "easy",
+  "organization": {
+    "topic": "Strings",
+    "path": [
+      "Algorithms",
+      "Strings"
+    ],
+    "tags": [
+      "string",
+      "two-pointers"
+    ],
+    "companies": []
+  },
+  "constraints": [
+    "0 \u2264 len(s) \u2264 100,000",
+    "Use Python str.isalnum() and str.lower() normalization."
+  ],
+  "examples": [
+    {
+      "input": {
+        "s": "A man, a plan, a canal: Panama"
+      },
+      "output": true,
+      "explanation": "Ignoring spaces and punctuation leaves a palindrome."
+    },
+    {
+      "input": {
+        "s": "race a car"
+      },
+      "output": false,
+      "explanation": "The normalized characters are not symmetric."
+    }
+  ],
+  "languages": {
+    "python": {
+      "entrypoint": {
+        "type": "function",
+        "name": "valid_palindrome",
+        "parameters": [
+          {
+            "name": "s",
+            "type": "str"
+          }
+        ],
+        "returns": "bool"
+      },
+      "starterCode": "def valid_palindrome(s: str) -> bool:\n    # Write your solution here.\n    pass\n"
+    }
+  },
+  "tests": {
+    "public": [
+      {
+        "name": "Example 1",
+        "input": {
+          "s": "A man, a plan, a canal: Panama"
+        },
+        "expected": true
+      },
+      {
+        "name": "Example 2",
+        "input": {
+          "s": "race a car"
+        },
+        "expected": false
+      }
+    ],
+    "hidden": [
+      {
+        "name": "Edge case 1",
+        "input": {
+          "s": "!? "
+        },
+        "expected": true
+      },
+      {
+        "name": "Edge case 2",
+        "input": {
+          "s": "0P"
+        },
+        "expected": false
+      }
+    ]
+  },
+  "metadata": {
+    "source": "lexor-original",
+    "author": "Lexor contributors",
+    "version": "1.0.0"
+  }
+}

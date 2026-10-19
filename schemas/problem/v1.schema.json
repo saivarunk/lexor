@@ -1,0 +1,329 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+([.-][a-z0-9]+)*$"
+    },
+    "slug": {
+      "type": "string",
+      "maxLength": 100,
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "difficulty": {
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
+    },
+    "organization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "topic",
+        "path",
+        "tags",
+        "companies"
+      ]
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "input": {
+            "type": "object"
+          },
+          "output": {},
+          "explanation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "input",
+          "output",
+          "explanation"
+        ]
+      },
+      "minItems": 1
+    },
+    "languages": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "entrypoint": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "function"
+              },
+              "name": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+                    },
+                    "type": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "type"
+                  ]
+                },
+                "minItems": 0
+              },
+              "returns": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "type",
+              "name",
+              "parameters",
+              "returns"
+            ]
+          },
+          "starterCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entrypoint",
+          "starterCode"
+        ]
+      }
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "public": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "input": {
+                "type": "object"
+              },
+              "expected": {},
+              "comparison": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "exact",
+                      "float",
+                      "unordered"
+                    ]
+                  },
+                  "absoluteTolerance": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "relativeTolerance": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "input",
+              "expected"
+            ]
+          },
+          "minItems": 1
+        },
+        "hidden": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "input": {
+                "type": "object"
+              },
+              "expected": {},
+              "comparison": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "exact",
+                      "float",
+                      "unordered"
+                    ]
+                  },
+                  "absoluteTolerance": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "relativeTolerance": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "mode"
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "input",
+              "expected"
+            ]
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "public",
+        "hidden"
+      ]
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "exact",
+            "float",
+            "unordered"
+          ]
+        },
+        "absoluteTolerance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "relativeTolerance": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "mode"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source",
+        "author",
+        "version"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "slug",
+    "title",
+    "description",
+    "difficulty",
+    "organization",
+    "constraints",
+    "examples",
+    "languages",
+    "tests",
+    "metadata"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lexor.dev/schemas/problem/v1.schema.json",
+  "title": "Lexor Problem v1"
+}

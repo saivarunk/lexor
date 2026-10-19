@@ -1,0 +1,11 @@
+/bin/
+/.lexor/
+/lexor.yaml
+/web/node_modules/
+/web/dist/*
+!/web/dist/.gitkeep
+/test-results/
+/playwright-report/
+/web/tsconfig.tsbuildinfo
+*.tmp
+.DS_Store

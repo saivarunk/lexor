@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "hash-maps.contains-duplicate",
+  "slug": "contains-duplicate",
+  "title": "Contains Duplicate",
+  "description": "A stream of integer identifiers should contain unique entries. Return true if any identifier appears at least twice, and false if every identifier is distinct.",
+  "difficulty": "easy",
+  "organization": {
+    "topic": "Hash Maps",
+    "path": [
+      "Algorithms",
+      "Hash Maps"
+    ],
+    "tags": [
+      "hashmap",
+      "set"
+    ],
+    "companies": []
+  },
+  "constraints": [
+    "0 \u2264 len(nums) \u2264 100,000"
+  ],
+  "examples": [
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          1
+        ]
+      },
+      "output": true,
+      "explanation": "Identifier 1 appears twice."
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "output": false,
+      "explanation": "All identifiers are unique."
+    }
+  ],
+  "languages": {
+    "python": {
+      "entrypoint": {
+        "type": "function",
+        "name": "contains_duplicate",
+        "parameters": [
+          {
+            "name": "nums",
+            "type": "list[int]"
+          }
+        ],
+        "returns": "bool"
+      },
+      "starterCode": "def contains_duplicate(nums: list[int]) -> bool:\n    # Write your solution here.\n    pass\n"
+    }
+  },
+  "tests": {
+    "public": [
+      {
+        "name": "Example 1",
+        "input": {
+          "nums": [
+            1,
+            2,
+            3,
+            1
+          ]
+        },
+        "expected": true
+      },
+      {
+        "name": "Example 2",
+        "input": {
+          "nums": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "expected": false
+      }
+    ],
+    "hidden": [
+      {
+        "name": "Edge case 1",
+        "input": {
+          "nums": []
+        },
+        "expected": false
+      },
+      {
+        "name": "Edge case 2",
+        "input": {
+          "nums": [
+            -1,
+            -1
+          ]
+        },
+        "expected": true
+      }
+    ]
+  },
+  "metadata": {
+    "source": "lexor-original",
+    "author": "Lexor contributors",
+    "version": "1.0.0"
+  }
+}

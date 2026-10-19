@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "dynamic-programming.climbing-stairs",
+  "slug": "climbing-stairs",
+  "title": "Climbing Stairs",
+  "description": "A robot climbs a staircase with n steps. In one move it can climb either one or two steps. Count the distinct ordered move sequences that reach exactly the top. There is one way to climb zero steps: make no moves.",
+  "difficulty": "easy",
+  "organization": {
+    "topic": "Dynamic Programming",
+    "path": [
+      "Algorithms",
+      "Dynamic Programming"
+    ],
+    "tags": [
+      "dynamic-programming",
+      "math"
+    ],
+    "companies": []
+  },
+  "constraints": [
+    "0 \u2264 n \u2264 45"
+  ],
+  "examples": [
+    {
+      "input": {
+        "n": 2
+      },
+      "output": 2,
+      "explanation": "The sequences are [1, 1] and [2]."
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "output": 3,
+      "explanation": "The sequences are [1, 1, 1], [1, 2], and [2, 1]."
+    }
+  ],
+  "languages": {
+    "python": {
+      "entrypoint": {
+        "type": "function",
+        "name": "climbing_stairs",
+        "parameters": [
+          {
+            "name": "n",
+            "type": "int"
+          }
+        ],
+        "returns": "int"
+      },
+      "starterCode": "def climbing_stairs(n: int) -> int:\n    # Write your solution here.\n    pass\n"
+    }
+  },
+  "tests": {
+    "public": [
+      {
+        "name": "Example 1",
+        "input": {
+          "n": 2
+        },
+        "expected": 2
+      },
+      {
+        "name": "Example 2",
+        "input": {
+          "n": 3
+        },
+        "expected": 3
+      }
+    ],
+    "hidden": [
+      {
+        "name": "Edge case 1",
+        "input": {
+          "n": 0
+        },
+        "expected": 1
+      },
+      {
+        "name": "Edge case 2",
+        "input": {
+          "n": 1
+        },
+        "expected": 1
+      },
+      {
+        "name": "Edge case 3",
+        "input": {
+          "n": 10
+        },
+        "expected": 89
+      }
+    ]
+  },
+  "metadata": {
+    "source": "lexor-original",
+    "author": "Lexor contributors",
+    "version": "1.0.0"
+  }
+}

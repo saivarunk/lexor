@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "strings.longest-common-prefix",
+  "slug": "longest-common-prefix",
+  "title": "Longest Common Prefix",
+  "description": "Find the longest beginning shared by every string in a collection. Return an empty string when the collection is empty or the strings do not share a first character.",
+  "difficulty": "easy",
+  "organization": {
+    "topic": "Strings",
+    "path": [
+      "Algorithms",
+      "Strings"
+    ],
+    "tags": [
+      "string",
+      "trie"
+    ],
+    "companies": []
+  },
+  "constraints": [
+    "0 \u2264 len(strs) \u2264 200",
+    "Each string contains at most 200 characters."
+  ],
+  "examples": [
+    {
+      "input": {
+        "strs": [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      },
+      "output": "fl",
+      "explanation": "All three strings begin with fl."
+    },
+    {
+      "input": {
+        "strs": [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      },
+      "output": "",
+      "explanation": "There is no shared prefix."
+    }
+  ],
+  "languages": {
+    "python": {
+      "entrypoint": {
+        "type": "function",
+        "name": "longest_common_prefix",
+        "parameters": [
+          {
+            "name": "strs",
+            "type": "list[str]"
+          }
+        ],
+        "returns": "str"
+      },
+      "starterCode": "def longest_common_prefix(strs: list[str]) -> str:\n    # Write your solution here.\n    pass\n"
+    }
+  },
+  "tests": {
+    "public": [
+      {
+        "name": "Example 1",
+        "input": {
+          "strs": [
+            "flower",
+            "flow",
+            "flight"
+          ]
+        },
+        "expected": "fl"
+      },
+      {
+        "name": "Example 2",
+        "input": {
+          "strs": [
+            "dog",
+            "racecar",
+            "car"
+          ]
+        },
+        "expected": ""
+      }
+    ],
+    "hidden": [
+      {
+        "name": "Edge case 1",
+        "input": {
+          "strs": []
+        },
+        "expected": ""
+      },
+      {
+        "name": "Edge case 2",
+        "input": {
+          "strs": [
+            "same",
+            "same"
+          ]
+        },
+        "expected": "same"
+      },
+      {
+        "name": "Edge case 3",
+        "input": {
+          "strs": [
+            "",
+            "x"
+          ]
+        },
+        "expected": ""
+      }
+    ]
+  },
+  "metadata": {
+    "source": "lexor-original",
+    "author": "Lexor contributors",
+    "version": "1.0.0"
+  }
+}
