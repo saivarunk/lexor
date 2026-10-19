@@ -9,3 +9,11 @@
 /web/tsconfig.tsbuildinfo
 *.tmp
 .DS_Store
+
+# Machine-local agent tooling and environment files
+/.claude/
+/.codex/
+/graphify-out/
+.env
+.env.*
+!.env.example

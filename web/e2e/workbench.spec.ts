@@ -238,3 +238,79 @@ test("settings persist, imports preview and install, exports stay allowlisted, a
   ).toBeVisible();
   expect(external).toEqual([]);
 });
+
+test("light theme stays synchronized across settings, header, editor, and reloads", async ({
+  page,
+}) => {
+  await page.goto("/settings");
+  const selector = page.getByLabel("Workbench theme");
+  await expect(selector).toBeEnabled();
+  await selector.selectOption("light");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(selector).toHaveValue("light");
+  await expect(selector).toBeEnabled();
+  const before = await page.evaluate(async () =>
+    (await fetch("/api/v1/settings")).json(),
+  );
+
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  await expect(selector).toHaveValue("dark");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.getByRole("button", { name: "Switch to light theme" }).click();
+  await expect(selector).toHaveValue("light");
+  await page.reload();
+  await expect(selector).toHaveValue("light");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  const after = await page.evaluate(async () =>
+    (await fetch("/api/v1/settings")).json(),
+  );
+  expect(after.editorFontSize).toBe(before.editorFontSize);
+  expect(after.editorTheme).toBe("light");
+  await expect(page.locator(".diagnostic").first()).toBeVisible();
+  await page.screenshot({
+    path: path.join(root, "docs/screenshots/settings-light.png"),
+    fullPage: true,
+  });
+
+  await page.goto("/practice/arrays.two-sum");
+  await expect(page.locator(".monaco-editor.vs")).toBeVisible();
+  await expect(page.locator(".monaco-editor")).toContainText("def two_sum");
+  await expect(page.getByText("Pyright connected")).toBeVisible();
+  await page.screenshot({
+    path: path.join(root, "docs/screenshots/practice-light.png"),
+    fullPage: true,
+  });
+  for (const [route, name, ready] of [
+    ["/", "dashboard-light", ".dashboard-hero"],
+    ["/problems", "library-light", ".problem-table"],
+  ]) {
+    await page.goto(route);
+    await expect(page.locator(ready)).toBeVisible();
+    await page.screenshot({
+      path: path.join(root, `docs/screenshots/${name}.png`),
+      fullPage: true,
+    });
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(
+    page.getByRole("button", { name: "Switch to dark theme" }),
+  ).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(
+    390,
+  );
+
+  await page.route("**/api/v1/settings", (route) =>
+    route.request().method() === "PUT"
+      ? route.fulfill({
+          status: 500,
+          contentType: "application/json",
+          body: JSON.stringify({
+            error: { message: "Cannot save appearance" },
+          }),
+        })
+      : route.continue(),
+  );
+  await page.getByRole("button", { name: "Switch to dark theme" }).click();
+  await expect(page.getByRole("alert")).toContainText("Cannot save appearance");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+});

@@ -17,15 +17,18 @@ import {
   Flame,
   LayoutDashboard,
   ListChecks,
+  Moon,
   PanelLeftClose,
   Settings2,
+  Sun,
   Terminal,
   TrendingUp,
   WifiOff,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { api, type Stats, type Preferences } from "../services/api";
-import { Loading } from "../components/ui";
+import { api, type Stats } from "../services/api";
+import { ErrorBox, Loading } from "../components/ui";
+import { useAppearance } from "../hooks/useAppearance";
 const Dashboard = lazy(() => import("../features/Dashboard"));
 const Problems = lazy(() => import("../features/Problems"));
 const ProblemEditor = lazy(() => import("../features/ProblemEditor"));
@@ -46,20 +49,19 @@ export default function App() {
     queryKey: ["stats"],
     queryFn: () => api<Stats>("/stats"),
   });
-  const preferences = useQuery({
-    queryKey: ["preferences"],
-    queryFn: () => api<Preferences>("/settings"),
-  });
+  const { preferences, appearance, theme } = useAppearance();
   useEffect(() => {
     if (preferences.data) {
       document.documentElement.dataset.theme = preferences.data.theme;
       localStorage.setItem("lexor:theme", preferences.data.theme);
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute(
+          "content",
+          preferences.data.theme === "light" ? "#f7f8fa" : "#111214",
+        );
     }
   }, [preferences.data]);
-  useEffect(() => {
-    document.documentElement.dataset.theme =
-      localStorage.getItem("lexor:theme") ?? "dark";
-  }, []);
   const active = location.pathname.startsWith("/practice/")
     ? "Practice"
     : location.pathname.startsWith("/settings")
@@ -171,7 +173,28 @@ export default function App() {
             </span>
             <span className="topbar-divider" />
             <Flame size={16} className="flame" />
-            <span>{stats?.currentStreak ?? 0} day streak</span>
+            <span className="streak-count">
+              {stats?.currentStreak ?? 0} day streak
+            </span>
+            <button
+              className="icon-button theme-toggle"
+              aria-label={
+                theme === "dark"
+                  ? "Switch to light theme"
+                  : "Switch to dark theme"
+              }
+              title={
+                theme === "dark"
+                  ? "Switch to light theme"
+                  : "Switch to dark theme"
+              }
+              disabled={preferences.isPending || appearance.isPending}
+              onClick={() =>
+                appearance.mutate(theme === "dark" ? "light" : "dark")
+              }
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <NavLink
               to="/settings"
               title="Workspace settings"
@@ -181,6 +204,7 @@ export default function App() {
             </NavLink>
           </div>
         </header>
+        {appearance.error ? <ErrorBox error={appearance.error} /> : null}
         <main
           className={
             location.pathname.startsWith("/practice/")

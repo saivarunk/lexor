@@ -5,6 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./app/App";
 import "@fontsource-variable/source-sans-3";
 import "./styles.css";
+document.documentElement.dataset.theme =
+  localStorage.getItem("lexor:theme") ?? "dark";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: false },

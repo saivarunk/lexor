@@ -18,8 +18,8 @@ import {
   type ImportPackage,
   type SyncPreview,
   type SystemStatus,
-  type Preferences,
 } from "../services/api";
+import { useAppearance } from "../hooks/useAppearance";
 import { Badge, ErrorBox, Loading, PageTitle } from "../components/ui";
 export default function Settings() {
   const q = useQuery({
@@ -35,9 +35,7 @@ export default function Settings() {
   const [git, setGit] = useState(false);
   const [pack, setPack] = useState<ImportPackage>();
   const [notice, setNotice] = useState("");
-  const [theme, setTheme] = useState(
-    localStorage.getItem("lexor:theme") ?? "dark",
-  );
+  const { preferences, appearance, theme } = useAppearance();
   const client = useQueryClient();
   const importAction = useMutation({
     mutationFn: async (digest?: string) =>
@@ -58,16 +56,6 @@ export default function Settings() {
         setNotice("");
       }
     },
-  });
-  const appearance = useMutation({
-    mutationFn: async (value: string) => {
-      const old = await api<Preferences>("/settings");
-      return api<Preferences>("/settings", {
-        method: "PUT",
-        body: JSON.stringify({ ...old, theme: value }),
-      });
-    },
-    onSuccess: (value) => client.setQueryData(["preferences"], value),
   });
   const exportAction = useMutation({
     mutationFn: () => post<SyncPreview>("/sync/export"),
@@ -169,20 +157,20 @@ export default function Settings() {
               <select
                 aria-label="Workbench theme"
                 value={theme}
-                onChange={(e) => {
-                  setTheme(e.target.value);
-                  appearance.mutate(e.target.value);
-                  localStorage.setItem("lexor:theme", e.target.value);
-                  document.documentElement.dataset.theme = e.target.value;
-                }}
+                disabled={preferences.isPending || appearance.isPending}
+                onChange={(e) =>
+                  appearance.mutate(
+                    e.target.value === "light" ? "light" : "dark",
+                  )
+                }
               >
                 <option value="dark">Dark · Default</option>
                 <option value="light">Light</option>
               </select>
             </label>
             <p className="small muted">
-              Editor theme and font size are available inside the practice
-              workspace.
+              Applies to the workbench and code editor. You can customize the
+              editor theme and font size inside the practice workspace.
             </p>
           </section>
           <section className="card settings-card security-note">

@@ -4,6 +4,7 @@
     "Source Sans 3 Variable", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   font-family: var(--font-ui);
+  color-scheme: dark;
   font-size: 16px;
   line-height: 1.5;
   color: var(--text);
@@ -24,6 +25,7 @@
   --hover: #23242b;
 }
 :root[data-theme="light"] {
+  color-scheme: light;
   --bg: #f7f8fa;
   --sidebar: #f0f1f5;
   --card: #fff;
@@ -2227,73 +2229,242 @@ tbody tr:hover {
   height: 29px;
   font-size: 13px;
 }
+/* Light surfaces use the same hierarchy and contrast as the dark workbench. */
 [data-theme="light"] .button.secondary {
   background: var(--card2);
   border-color: var(--border);
 }
+[data-theme="light"] .text-link,
 [data-theme="light"] .topic-tabs button.selected,
 [data-theme="light"] .pane-tabs > button.selected,
 [data-theme="light"] .result-tabs > button.selected,
-[data-theme="light"] .text-link,
-[data-theme="light"] .library-tip,
-[data-theme="light"] .library-tip strong,
-[data-theme="light"] .library-tip .text-link {
+[data-theme="light"] .problem-title:hover,
+[data-theme="light"] .tags button:hover,
+[data-theme="light"] .empty-symbol,
+[data-theme="light"] .execution-loading {
   color: var(--accent);
 }
-[data-theme="light"] .library-tip {
-  background: #f0edf5;
-  border-color: #d7d0e2;
+[data-theme="light"] .text-link:hover {
+  color: #4c2b8a;
 }
-[data-theme="light"] .ready-results strong,
-[data-theme="light"] .execution-bar {
-  color: var(--text);
+[data-theme="light"] .nav-item.active,
+[data-theme="light"] .nav-count,
+[data-theme="light"] .topic-tabs button > span,
+[data-theme="light"] .editor-mode-tabs button.selected,
+[data-theme="light"] .test-case-tabs button.selected {
+  background: #e9e2f7;
+  color: #64429d;
+  border-color: #d4c7eb;
 }
+[data-theme="light"] .version,
+[data-theme="light"] .badge.purple,
+[data-theme="light"] .tag,
+[data-theme="light"] .tags button {
+  background: #eee8f8;
+  color: #674897;
+  border-color: #ddd1ef;
+}
+[data-theme="light"] .workspace-avatar,
+[data-theme="light"] .summary-icon,
+[data-theme="light"] .row-number,
+[data-theme="light"] .note-icon,
+[data-theme="light"] .ready-icon {
+  background: #eee8f6;
+  color: #76589e;
+  border-color: #d9cfe7;
+}
+[data-theme="light"] .user-avatar {
+  background: #e0eee5;
+  color: #336a4c;
+  border-color: #c4dccc;
+}
+[data-theme="light"] .daily-card,
+[data-theme="light"] .practice-note {
+  --muted: #625b70;
+  background: linear-gradient(125deg, #f0ebf8, #faf8fd);
+  border-color: #ded4ed;
+}
+[data-theme="light"] .daily-card > div,
+[data-theme="light"] .daily-card a,
+[data-theme="light"] .practice-note .eyebrow,
+[data-theme="light"] .practice-note .text-link {
+  color: #694794;
+}
+[data-theme="light"] .daily-card p {
+  color: #625b70;
+}
+[data-theme="light"] .dashboard-hero {
+  background:
+    radial-gradient(ellipse at 88% 65%, #d5c5ed66, transparent 60%),
+    linear-gradient(108deg, #eee8f7, #f6f2fb 65%, #eae2f5);
+  border-color: #d9cde9;
+}
+[data-theme="light"] .hero-copy h2 {
+  color: #342343;
+}
+[data-theme="light"] .hero-copy h2 span {
+  color: #735589;
+}
+[data-theme="light"] .hero-copy p {
+  color: #625870;
+}
+[data-theme="light"] .orbit {
+  border-color: #a78bbd30;
+}
+[data-theme="light"] .code-tile {
+  background: linear-gradient(120deg, #fff, #f2edf9);
+  border-color: #c9b6df;
+  box-shadow: 0 17px 40px #5d397d1a;
+  color: #765593;
+}
+[data-theme="light"] .tile-front {
+  color: #564064;
+}
+[data-theme="light"] .tile-front b,
+[data-theme="light"] .floating-spark {
+  color: #744ba0;
+}
+[data-theme="light"] .tile-front i {
+  color: #90602b;
+}
+[data-theme="light"] .tile-comment {
+  color: #75677e;
+}
+[data-theme="light"] .tile-success {
+  background: #e6f1e9;
+  color: #376d48;
+  border-color: #c1d9c9;
+}
+[data-theme="light"] .metric-icon.violet {
+  background: #eee6f8;
+  color: #7950ad;
+}
+[data-theme="light"] .metric-icon.orange,
+[data-theme="light"] .diagnostic-icon.attention {
+  background: #fff0df;
+  color: #976226;
+}
+[data-theme="light"] .metric-icon.green,
+[data-theme="light"] .diagnostic-icon.good {
+  background: #e5f2e9;
+  color: #337550;
+}
+[data-theme="light"] .metric-icon.blue {
+  background: #e6eefb;
+  color: #426b9d;
+}
+[data-theme="light"] .badge.easy,
+[data-theme="light"] .status.success svg {
+  background: #e2f2e8;
+  color: #256c49;
+}
+[data-theme="light"] .badge.medium,
+[data-theme="light"] .badge.warning {
+  background: #fff0da;
+  color: #87541c;
+}
+[data-theme="light"] .badge.hard {
+  background: #fbe7e9;
+  color: #a13e4c;
+}
+[data-theme="light"] .status.success {
+  color: var(--green);
+}
+[data-theme="light"] .warning-text {
+  color: #93571e;
+}
+[data-theme="light"] .progress-track {
+  background: #e7e9ee;
+}
+[data-theme="light"] .security-note {
+  background: linear-gradient(130deg, #eaf4ed, #f5faf6);
+  border-color: #cbded0;
+}
+[data-theme="light"] .security-note p,
 [data-theme="light"] .sync-files > div {
   color: #476453;
 }
-[data-theme="light"] .example pre span {
-  color: var(--muted);
+[data-theme="light"] .security-note > code {
+  background: #e0eee4;
+  color: #365e43;
+  border-color: #c6dacd;
+}
+[data-theme="light"] .security-note > svg {
+  color: #4f815e;
+}
+[data-theme="light"] .settings-section-title > svg,
+[data-theme="light"] .form-section-heading > span {
+  color: #795b9c;
+}
+[data-theme="light"] .error-box,
+[data-theme="light"] .runtime-diagnostic {
+  background: #fff0ec;
+  color: #993c2a;
+  border-color: #edc8bd;
+}
+[data-theme="light"] .success-box {
+  background: #eaf5ee;
+  color: #2e6e49;
+  border-color: #c5dfce;
+}
+[data-theme="light"] th {
+  background: #f2f3f8;
 }
 [data-theme="light"] td,
 [data-theme="light"] .page-footer {
   border-color: var(--border);
 }
-[data-theme="light"] .hero-copy,
-[data-theme="light"] .hero-art,
-[data-theme="light"] .practice-note,
-[data-theme="light"] .security-note {
-  color: #ddd;
+[data-theme="light"] .library-tip {
+  background: #f1edf8;
+  border-color: #d7d0e2;
+  color: #795b9c;
 }
-[data-theme="light"] th {
-  background: #f4f3f8;
-}
-[data-theme="light"] .results-pane,
-[data-theme="light"] .example {
-  background: #f3f0f8;
-}
-[data-theme="light"] .example pre,
-[data-theme="light"] .example p,
-[data-theme="light"] .problem-description {
-  color: #665b76;
-}
-[data-theme="light"] .split-handle {
-  background: #e6e3ed;
-}
-[data-theme="light"] .tag,
-[data-theme="light"] .tags button {
-  background: #f0edf5;
-  color: #766288;
-  border-color: #e2daeb;
-}
-[data-theme="light"] .breadcrumbs strong {
-  color: #4f485a;
-}
+[data-theme="light"] .library-tip strong,
+[data-theme="light"] .breadcrumbs strong,
 [data-theme="light"] .field > span {
-  color: #615970;
+  color: #51465f;
 }
 [data-theme="light"] .field input,
 [data-theme="light"] .field textarea {
   border-color: #d7d0e2;
+}
+[data-theme="light"] .results-pane,
+[data-theme="light"] .monaco-pane {
+  background: var(--card);
+}
+[data-theme="light"] .example,
+[data-theme="light"] .result-values pre {
+  background: #f5f2fa;
+  border-color: #dfd7e9;
+  color: #51435f;
+}
+[data-theme="light"] .example pre,
+[data-theme="light"] .example p,
+[data-theme="light"] .console-output {
+  color: #51435f;
+}
+[data-theme="light"] .example pre span,
+[data-theme="light"] .constraints,
+[data-theme="light"] .constraints code,
+[data-theme="light"] .import-preview > div {
+  color: var(--muted);
+}
+[data-theme="light"] .problem-description,
+[data-theme="light"] .ready-results strong,
+[data-theme="light"] .execution-bar {
+  color: var(--text);
+}
+[data-theme="light"] .editor-toolbar > svg {
+  color: #76608e;
+}
+[data-theme="light"] .split-handle,
+[data-theme="light"] .results-handle {
+  background: #eeebf4;
+  color: #81738f;
+}
+[data-theme="light"] .split-handle:hover,
+[data-theme="light"] .results-handle:hover {
+  background: #d9cee9;
 }
 [data-theme="light"] .heatmap-cell {
   background: #f0eef4;
@@ -2310,6 +2481,16 @@ tbody tr:hover {
 }
 [data-theme="light"] .heatmap-cell.level-4 {
   background: #33743b;
+}
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+@media (max-width: 800px) {
+  .topbar .topbar-right > .theme-toggle {
+    display: inline-flex;
+  }
 }
 @media (min-width: 1500px) {
   .page {
@@ -2630,4 +2811,12 @@ input::placeholder,
 textarea::placeholder {
   color: var(--muted);
   opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .topbar-right > .streak-count,
+  .topbar-right > .flame,
+  .topbar-right > .topbar-divider {
+    display: none;
+  }
 }

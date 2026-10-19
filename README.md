@@ -24,6 +24,7 @@ Six original starter exercises cover arrays, strings, hash maps and dynamic prog
 Build from a checkout of this repository:
 
 ```sh
+git clone https://github.com/saivarunk/lexor.git
 cd lexor
 make setup
 make build
@@ -64,6 +65,8 @@ lexor stats
 lexor plugin list
 ```
 
+`lexor serve` displays the Lexor ASCII banner, browser URL, and workspace path on startup. Commands that return JSON keep their output machine-readable.
+
 Keep one server process per workspace. The default bind address is loopback; this release does not provide authentication for a shared/public deployment.
 
 ## Practice
@@ -74,9 +77,12 @@ Open the problem library, choose **Two Sum**, and edit the Python function. **Ru
 - Cmd/Ctrl + Shift + Enter: submit.
 - Cmd/Ctrl + K on the library: focus search.
 - Drafts autosave to SQLite, with a browser backup while a save is pending.
-- Editor preferences are available above Monaco; application appearance is in Settings.
+- Editor preferences are available above Monaco.
+- Use the sun/moon button in the header or **Settings → Workbench theme** to switch between dark and light themes. The choice is saved and also updates the editor theme without changing its font settings.
 
 ![Lexor practice workspace](docs/screenshots/practice.png)
+
+![Lexor light theme](docs/screenshots/practice-light.png)
 
 In a source checkout, `make setup` installs pinned Pyright locally and Lexor detects it. For a standalone binary, install it explicitly:
 

@@ -23,7 +23,7 @@ import (
 func New() *cobra.Command {
 	var workspace, host string
 	var port int
-	root := &cobra.Command{Use: "lexor", Short: "Your local coding practice workbench", SilenceUsage: true, SilenceErrors: true}
+	root := &cobra.Command{Use: "lexor", Short: "Your local coding practice workbench", Long: banner + "\nYour local coding practice workbench.", SilenceUsage: true, SilenceErrors: true}
 	root.PersistentFlags().StringVar(&workspace, "workspace", ".", "Workspace directory")
 	open := func(cmd *cobra.Command) (*app.App, error) {
 		c, err := config.Load(workspace)
@@ -71,6 +71,11 @@ func New() *cobra.Command {
 		address := net.JoinHostPort(a.Config.Server.Host, fmt.Sprint(a.Config.Server.Port))
 		origin := "http://" + address
 		httpServer := &http.Server{Addr: address, Handler: server.New(a, origin), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 10 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 << 10}
+		listener, err := net.Listen("tcp", address)
+		if err != nil {
+			return err
+		}
+		defer listener.Close()
 		ctx, stop := signal.NotifyContext(cmd.Context(), os.Interrupt, syscall.SIGTERM)
 		defer stop()
 		httpServer.BaseContext = func(net.Listener) context.Context { return ctx }
@@ -80,8 +85,9 @@ func New() *cobra.Command {
 			defer cancel()
 			httpServer.Shutdown(shutdown)
 		}()
+		fmt.Fprintf(cmd.OutOrStdout(), "\n%s\n  Your local coding practice workbench.\n\n  Open       %s\n  Workspace  %s\n\n", banner, origin, a.Config.Root)
 		slog.Info("Lexor ready", "url", origin, "workspace", a.Config.Root)
-		err := httpServer.ListenAndServe()
+		err = httpServer.Serve(listener)
 		if err == http.ErrServerClosed {
 			return nil
 		}
