@@ -21,12 +21,16 @@ The supplied product specification is the scope. This repository began empty wit
 
 ## Verification checklist
 
-- [ ] Go formatting, unit/race and API/persistence/security integration tests
-- [ ] Bun typecheck, UI tests and frontend production build
-- [ ] Embedded binary CLI init/doctor/library/export/import smoke tests
-- [ ] Actual browser CRUD, practice draft and reload/restart persistence
-- [ ] Actual sandbox correct/incorrect/error/timeout/output/network/isolation tests
-- [ ] Pyright actual semantic completion/diagnostic check
-- [ ] CI, documentation, ADRs and accurate limitations
+- [x] Go formatting, unit/race and API/persistence/security integration tests
+- [x] Bun typecheck, UI tests and frontend production build
+- [x] Embedded binary CLI init/doctor/library/export/import smoke tests
+- [x] Actual browser CRUD, practice draft and reload/restart persistence
+- [x] Actual sandbox correct/incorrect/error/timeout/output/network/isolation tests
+- [x] Pyright actual semantic completion/diagnostic check
+- [x] CI, documentation, ADRs and accurate limitations
 
 Detailed results are recorded in docs/verification.md. A missing Docker daemon is an environment blocker for execution checks, never permission to execute submissions on the host.
+
+## Outcome
+
+All eight MVP phases are implemented. Local build, unit/race/UI, real Docker/Pyright and three Playwright journeys pass. Six original problems validate. Public CI and Linux host-runtime checks remain explicitly unverified external gates; four platform binaries cross-build. See verification.md for exact commands, evidence, and remaining platform/product boundaries.

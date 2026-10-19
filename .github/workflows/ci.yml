@@ -1,0 +1,60 @@
+name: Lexor checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: make setup
+      - run: make lint
+      - run: go test -race ./internal/...
+      - run: make test
+      - run: make build
+      - run: ./bin/lexor problem validate
+      - name: Generated contracts are current
+        run: git diff --exit-code -- docs/openapi.json web/src/types/api.generated.ts
+      - run: docker pull python:3.12.15-alpine3.23
+      - run: make test-integration
+      - run: cd web && bunx playwright install --with-deps chromium
+      - run: cd web && bun run test:e2e
+      - run: cd web && bun audit
+      - run: go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 ./...
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failures
+          path: test-results
+  portable-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [darwin, linux]
+        goarch: [arm64, amd64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.2'
+      - run: make setup
+      - run: cd web && bun run build
+      - run: CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -o bin/lexor-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/lexor
